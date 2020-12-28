@@ -5,7 +5,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 30;       /* gaps between windows */
+static const unsigned int gappx     = 0;        /* gaps between windows, ~30? */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const char *fonts[]          = { "Font Awesome:size=32" };
 static const char dmenufont[]       = "monospace:size=10";
@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 };
 
 /* status bar */
-static const int showbar            = 1;        /* 0 means no bar */
+static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const int user_bh = 60;                  /* height of status bar */
 
@@ -72,8 +72,8 @@ static const Layout layouts[] = {
 	{ "",      tile },         /* first entry is default */
 	{ "",      NULL },         /* no layout function means floating behavior */
 	{ "",      monocle },
-	{ "",      bstack },       /* alt-u */
-	{ "",      bstackhoriz },  /* alt-o */
+	/* { "",      bstack },       /1* alt-u *1/ */
+	/* { "",      bstackhoriz },  /1* alt-o *1/ */
   	{ "",      dwindle },      /* alt-shift-r */
 };
 
@@ -96,13 +96,13 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-
 	{ CMDKEY,                       XK_w,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim $DROPBOX/vimwiki/index.wiki") },
+	{ CMDKEY,                       XK_e,      spawn,          SHCMD("emacs") },
 	{ CMDKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e ranger --confdir $CONF/ranger") },  /* confdir param not really needed? */
 	{ CMDKEY,                       XK_t,      spawn,          SHCMD(TERMINAL " -e zsh") },
-	{ CMDKEY,                       XK_a,      spawn,          SHCMD("anki") },
-	{ CMDKEY,                       XK_F8,      spawn,          SHCMD("spotify") },
-	{ CMDKEY,                       XK_s,      spawn,          SHCMD("slack") },
+	/* { CMDKEY,                       XK_a,      spawn,          SHCMD("anki") }, */
+	/* { CMDKEY,                       XK_F8,      spawn,          SHCMD("spotify") }, */
+	/* { CMDKEY,                       XK_s,      spawn,          SHCMD("slack") }, */
 	/* { CMDKEY,                       XK_s,      spawn,          SHCMD("slack") }, */
 	/* { CMDKEY,                       XK_f,      spawn,          SHCMD(TERMINAL " -e fzf") }, */
 	/* { MODKEY,                       XK_c,      spawn,          SHCMD(TERMINAL " -e cd $CONF && ls") }, */
@@ -111,9 +111,8 @@ static Key keys[] = {
 	{ CMDKEY,                       XK_q,      killclient,     {0} },
 	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser") },
 	/* { CMDKEY,                       XK_n,      spawn,          SHCMD(TERMINAL " -e task next") }, */
-	{ CMDKEY,                       XK_m,      spawn,          SHCMD(TERMINAL " -e gotop --color=solarized") },
+	{ CMDKEY,                       XK_a,      spawn,          SHCMD(TERMINAL " -e gotop --color=solarized") },
 	/* { MODKEY,                       XK_m,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim") }, */
-
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -130,8 +129,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[5]} },
+	/* { MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} }, */
+	/* { MODKEY,                       XK_o,      setlayout,      {.v = &layouts[5]} }, */
  	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
