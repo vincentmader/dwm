@@ -41,7 +41,7 @@ export SEP2=""
 # . "$DIR/bar-functions/dwm_keyboard.sh"
 # . "$DIR/bar-functions/dwm_ccurse.sh"
 . "$DIR/bar-functions/dwm_date.sh" > /dev/null
-. "$DIR/bar-functions/dwm_taskwarrior.sh" > /dev/null
+# . "$DIR/bar-functions/dwm_taskwarrior.sh" > /dev/null
 # . "$DIR/bar-functions/dwm_connman.sh"
 # . "$DIR/bar-functions/dwm_loadavg.sh"
 
@@ -69,7 +69,7 @@ create_status_bar() {
     dispstr="$dispstr$(dwm_sound_volume)     "
     dispstr="$dispstr$(dwm_weather)   "
     dispstr="$dispstr$(dwm_date)     "
-    dispstr="$dispstr$(dwm_taskwarrior)  "
+    # dispstr="$dispstr$(dwm_taskwarrior)  "
     # dispstr="$dispstr$(dwm_loadavg)"
     echo "${dispstr}"
 }

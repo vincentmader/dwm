@@ -4,10 +4,10 @@
 #define TERMINAL "st"
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int gappx     = 0;        /* gaps between windows, ~30? */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const char *fonts[]          = { "Font Awesome:size=32" };
+static const char *fonts[]          = { "Font Awesome:size=20" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -18,26 +18,31 @@ static const char col_white[]       = "#666666";
 static const char *colors[][3]      = {
     /*               fg         bg         border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-    [SchemeSel]  = { col_blue, col_gray1, col_white },
+    [SchemeSel]  = { col_blue,  col_gray1, col_white },
 };
 
 /* status bar */
 static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const int user_bh = 60;                  /* height of status bar */
+static const int user_bh = 50;                  /* height of status bar */
 
 /* tagging */
 static const char *tags[] = { 
     /* "", "", "", "", "", "", "", "", "" */ 
     "", 
-    /* "", */ 
     "",
+    /* "", */ 
     "", 
-    "",
-    "",
-    "", 
-    "",
-    "", 
+    "",
+    "",
+    "",
+    "",
+    "",
+    /* "", */
+    /* "", */
+    /* "", */ 
+    /* "", */
+    /* "", */ 
     "", 
     /* "", */ 
     /* "" */ 
@@ -49,14 +54,18 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+        {  NULL,      NULL,       "emacs",       1 << 0,       False,       -1 },
+        /* {  NULL,      NULL,       "qutebrowser",    1 << 1,       False,       -1 }, */
+        /* {  NULL,      NULL,       TERMINAL " -e zsh",       1 << 2,       False,       -1 }, */
+	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
+	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
 
 /* layout(s) */
-static const float mfact     = 0.5;  /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.45;  /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int attachbelow = 1;    /* 1 means attach after the currently active window */
 
 #include "fibonacci.c"
 static const Layout layouts[] = {
@@ -109,7 +118,7 @@ static Key keys[] = {
 	{ CMDKEY,                       XK_c,      spawn,          SHCMD("sh $HOME/Documents/critical_driving_scenarios/project/carla/CarlaUE4.sh -opengl3 -quality-level=Low") },
 	{ CMDKEY,                       XK_v,      spawn,          SHCMD(TERMINAL " -e nvim -u ~/.config/nvim/init.vim") },
 	{ CMDKEY,                       XK_q,      killclient,     {0} },
-	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser") },
+	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4") },
 	/* { CMDKEY,                       XK_n,      spawn,          SHCMD(TERMINAL " -e task next") }, */
 	{ CMDKEY,                       XK_a,      spawn,          SHCMD(TERMINAL " -e gotop --color=solarized") },
 	/* { MODKEY,                       XK_m,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim") }, */
