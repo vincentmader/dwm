@@ -55,7 +55,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
         {  NULL,      NULL,       "emacs",       1 << 0,       False,       -1 },
-        /* {  NULL,      NULL,       "qutebrowser",    1 << 1,       False,       -1 }, */
+        /* {  NULL,      NULL,       "qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4",    1 << 1,       False,       -1 }, */
         /* {  NULL,      NULL,       TERMINAL " -e zsh",       1 << 2,       False,       -1 }, */
 	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
 	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
