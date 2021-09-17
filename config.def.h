@@ -55,6 +55,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
         {  NULL,      NULL,       "emacs",       1 << 0,       False,       -1 },
+        /* {  NULL,      NULL,       "qutebrowser", 2 << 0,       False,       -1 }, */
+        /* {  NULL,      NULL,       "st",          3 << 0,       False,       -1 }, */
         /* {  NULL,      NULL,       "qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4",    1 << 1,       False,       -1 }, */
         /* {  NULL,      NULL,       TERMINAL " -e zsh",       1 << 2,       False,       -1 }, */
 	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
@@ -119,6 +121,7 @@ static Key keys[] = {
 	{ CMDKEY,                       XK_v,      spawn,          SHCMD(TERMINAL " -e nvim -u ~/.config/nvim/init.vim") },
 	{ CMDKEY,                       XK_q,      killclient,     {0} },
 	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4") },
+	/* { CMDKEY,                       XK_x,      spawn,          SHCMD("echo ':run-with-count 0 reload -f' > $QUTE_FIFO") }, */ 
 	/* { CMDKEY,                       XK_n,      spawn,          SHCMD(TERMINAL " -e task next") }, */
 	{ CMDKEY,                       XK_a,      spawn,          SHCMD(TERMINAL " -e gotop --color=solarized") },
 	/* { MODKEY,                       XK_m,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim") }, */
