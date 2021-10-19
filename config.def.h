@@ -4,27 +4,27 @@
 #define TERMINAL "st"
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 0;        /* gaps between windows, ~30? */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int gappx     = 40;        /* gaps between windows, ~30? */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const char *fonts[]          = { "Font Awesome:size=20" };
+static const char *fonts[]          = { "Font Awesome:size=30" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_blue[]       = "#005577";
+static const char col_blue[]       = "#268BD2";
 static const char col_white[]       = "#666666";
 static const char *colors[][3]      = {
     /*               fg         bg         border   */
-    [SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-    [SchemeSel]  = { col_blue,  col_gray1, col_white },
+    [SchemeNorm] = { col_gray3, col_gray1, "#333333" },
+    [SchemeSel]  = { col_blue,  col_gray1, "#333333" },
 };
 
 /* status bar */
 static const int showbar            = 0;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
-static const int user_bh = 50;                  /* height of status bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh = 70;                  /* height of status bar */
 
 /* tagging */
 static const char *tags[] = { 
@@ -64,7 +64,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.45;  /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.4;  /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow = 1;    /* 1 means attach after the currently active window */
