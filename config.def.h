@@ -3,35 +3,43 @@
 /* Constants (copied from Luke Smith) */
 #define TERMINAL "st"
 
+
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
-static const unsigned int gappx     = 40;        /* gaps between windows, ~30? */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
+static const unsigned int gappx[]   = { 45 };   /* default gap between windows in pixels, this can be customized for each tag */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const char *fonts[]          = { "Font Awesome:size=30" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
+static const int showbar            = 0;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh            = 50;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+/* static const char *fonts[]          = { "monospace:size=30" }; */
+/* static const char dmenufont[]       = "monospace:size=10"; */
+static const char *fonts[]          = { "Font Awesome:size=25" };
+static const char dmenufont[]       = "Font Awesome:size=10";
+static const int attachbelow        = 1;    /* 1 means attach after the currently active window */
+
+static const char col_bg[]          = "#666666";
+
+static const char col_black[]       = "#AAAAAA";  /* TODO rename */
+static const char col_gray1[]       = "#111111";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_cyan[]        = "#005577";
 static const char col_blue[]       = "#268BD2";
-static const char col_white[]       = "#666666";
 static const char *colors[][3]      = {
-    /*               fg         bg         border   */
-    [SchemeNorm] = { col_gray3, col_gray1, "#333333" },
-    [SchemeSel]  = { col_blue,  col_gray1, "#333333" },
+	/*               fg         bg          border   */
+	[SchemeNorm] = { col_gray3, col_gray1,  col_black },
+	[SchemeSel]  = { col_blue,  col_gray1,  col_black  },
 };
-
-/* status bar */
-static const int showbar            = 0;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int user_bh = 70;                  /* height of status bar */
 
 /* tagging */
 static const char *tags[] = { 
     /* "", "", "", "", "", "", "", "", "" */ 
-    "", 
+    /* "", */ 
     "",
     /* "", */ 
+    "", 
     "", 
     "",
     "",
@@ -40,12 +48,10 @@ static const char *tags[] = {
     "",
     /* "", */
     /* "", */
-    /* "", */ 
     /* "", */
     /* "", */ 
     "", 
     /* "", */ 
-    /* "" */ 
 };
 
 static const Rule rules[] = {
@@ -54,38 +60,31 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
+	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
+	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
         {  NULL,      NULL,       "emacs",       1 << 0,       False,       -1 },
+        /* {  NULL,      NULL,       "spotify",       9 << 9,       False,       -1 }, */
         /* {  NULL,      NULL,       "qutebrowser", 2 << 0,       False,       -1 }, */
         /* {  NULL,      NULL,       "st",          3 << 0,       False,       -1 }, */
         /* {  NULL,      NULL,       "qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4",    1 << 1,       False,       -1 }, */
         /* {  NULL,      NULL,       TERMINAL " -e zsh",       1 << 2,       False,       -1 }, */
-	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
-	/* { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
 
 /* layout(s) */
-static const float mfact     = 0.4;  /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static const int attachbelow = 1;    /* 1 means attach after the currently active window */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+
 
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	/* { "[]=",      tile },         /1* first entry is default *1/ */
-	/* { "><>",      NULL },         /1* no layout function means floating behavior *1/ */
-	/* { "[M]",      monocle }, */
-	/* { "TTT",      bstack },       /1* alt-u *1/ */
-	/* { "===",      bstackhoriz },  /1* alt-o *1/ */
-  	/* { "[@]",      spiral },       /1* alt-r *1/ */
-  	/* { "[\\]",     dwindle },      /1* alt-shift-r *1/ */
-  	{ "",      spiral },       /* alt-r */
-	{ "",      tile },         /* first entry is default */
-	{ "",      NULL },         /* no layout function means floating behavior */
-	{ "",      monocle },
-	/* { "",      bstack },       /1* alt-u *1/ */
-	/* { "",      bstackhoriz },  /1* alt-o *1/ */
-  	{ "",      dwindle },      /* alt-shift-r */
+	{ "[]=",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },
+  	{ "[@]",      spiral },
+  	{ "[\\]",     dwindle },
 };
 
 /* key definitions */
@@ -102,29 +101,19 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_blue, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ CMDKEY,                       XK_w,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim $DROPBOX/vimwiki/index.wiki") },
 	{ CMDKEY,                       XK_e,      spawn,          SHCMD("emacs") },
+	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4") },
 	{ CMDKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e ranger --confdir $CONF/ranger") },  /* confdir param not really needed? */
 	{ CMDKEY,                       XK_t,      spawn,          SHCMD(TERMINAL " -e zsh") },
-	/* { CMDKEY,                       XK_a,      spawn,          SHCMD("anki") }, */
-	/* { CMDKEY,                       XK_F8,      spawn,          SHCMD("spotify") }, */
-	/* { CMDKEY,                       XK_s,      spawn,          SHCMD("slack") }, */
-	/* { CMDKEY,                       XK_s,      spawn,          SHCMD("slack") }, */
-	/* { CMDKEY,                       XK_f,      spawn,          SHCMD(TERMINAL " -e fzf") }, */
-	/* { MODKEY,                       XK_c,      spawn,          SHCMD(TERMINAL " -e cd $CONF && ls") }, */
-	{ CMDKEY,                       XK_c,      spawn,          SHCMD("sh $HOME/Documents/critical_driving_scenarios/project/carla/CarlaUE4.sh -opengl3 -quality-level=Low") },
-	{ CMDKEY,                       XK_v,      spawn,          SHCMD(TERMINAL " -e nvim -u ~/.config/nvim/init.vim") },
-	{ CMDKEY,                       XK_q,      killclient,     {0} },
-	{ CMDKEY,                       XK_b,      spawn,          SHCMD("qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4") },
-	/* { CMDKEY,                       XK_x,      spawn,          SHCMD("echo ':run-with-count 0 reload -f' > $QUTE_FIFO") }, */ 
-	/* { CMDKEY,                       XK_n,      spawn,          SHCMD(TERMINAL " -e task next") }, */
 	{ CMDKEY,                       XK_a,      spawn,          SHCMD(TERMINAL " -e gotop --color=solarized") },
-	/* { MODKEY,                       XK_m,      spawn,          SHCMD(TERMINAL " -e nvim -u $CONF/nvim/init.vim") }, */
+	{ CMDKEY,                       XK_z,      spawn,          SHCMD("zathura") },
+	{ CMDKEY,                       XK_q,      killclient,     {0} },
+
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -136,15 +125,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
- 	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
-	/* { MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} }, */
-	/* { MODKEY,                       XK_o,      setlayout,      {.v = &layouts[5]} }, */
- 	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+ 	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
+ 	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -152,9 +138,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-        { MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+ 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
+ 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+ 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
+ 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

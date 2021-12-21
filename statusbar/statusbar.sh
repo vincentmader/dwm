@@ -30,12 +30,12 @@ export SEP2=""
 # . "$DIR/bar-functions/dwm_spotify.sh"
 # . "$DIR/bar-functions/dwm_resources.sh"
 . "$DIR/bar-functions/dwm_battery.sh" > /dev/null
-. "$DIR/bar-functions/dwm_sound_volume.sh" > /dev/null
+# . "$DIR/bar-functions/dwm_sound_volume.sh" > /dev/null
 # . "$DIR/bar-functions/dwm_mail.sh"
 # . "$DIR/bar-functions/dwm_backlight.sh"
 # . "$DIR/bar-functions/dwm_alsa.sh"
 # . "$DIR/bar-functions/dwm_pulse.sh"
-. "$DIR/bar-functions/dwm_weather.sh" > /dev/null
+# . "$DIR/bar-functions/dwm_weather.sh" > /dev/null
 # . "$DIR/bar-functions/dwm_vpn.sh"
 # . "$DIR/bar-functions/dwm_networkmanager.sh"
 # . "$DIR/bar-functions/dwm_keyboard.sh"
@@ -65,10 +65,11 @@ create_status_bar() {
     # dispstr="$dispstr$(dwm_keyboard)"
     # dispstr="$dispstr$(dwm_ccurse)"
     # dispstr="$dispstr$(dwm_mail)    "
-    dispstr="$dispstr$(dwm_battery)   "
-    dispstr="$dispstr$(dwm_sound_volume)     "
-    dispstr="$dispstr$(dwm_weather)   "
-    dispstr="$dispstr$(dwm_date)     "
+    dispstr="$dispstr   $(dwm_weather)"
+    dispstr="$dispstr   $(dwm_sound_volume)"
+    dispstr="$dispstr   $(dwm_battery)"
+    dispstr="$dispstr   $(dwm_date)"
+    dispstr="$dispstr  "
     # dispstr="$dispstr$(dwm_taskwarrior)  "
     # dispstr="$dispstr$(dwm_loadavg)"
     echo "${dispstr}"

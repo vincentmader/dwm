@@ -11,7 +11,7 @@ dwm_date () {
     #     printf "📆 %s" "$(date "+%a, %b %d  %H:%M:%S")"
     # else
     export LC_ALL=en_US.UTF-8
-    printf "  $(date "+%a, %b %d  %H:%M")"
+    printf "  $(date "+%a %y-%m-%d %H:%M")"
     # fi
     # printf "%s\n" "$SEP2"
 }

@@ -12,19 +12,19 @@ dwm_battery () {
     if [ $STATUS = "Charging" ]; then
         CHARGE_ICON="↯"
     else
-        CHARGE_ICON=""
+        CHARGE_ICON=" "
     fi
 
     if [ "$CHARGE" -ge 80 ]; then
-        echo " $CHARGE_ICON $CHARGE%"
+        echo " $CHARGE_ICON$CHARGE%"
     elif [ "$CHARGE" -le 80 ] && [ "$CHARGE" -gt 60 ]; then
-        echo " $CHARGE_ICON $CHARGE%"
+        echo " $CHARGE_ICON$CHARGE%"
     elif [ "$CHARGE" -le 60 ] && [ "$CHARGE" -gt 40 ]; then
-        echo " $CHARGE_ICON $CHARGE%"
+        echo " $CHARGE_ICON$CHARGE%"
     elif [ "$CHARGE" -le 40 ] && [ "$CHARGE" -gt 20 ]; then
-        echo " $CHARGE_ICON $CHARGE%"
+        echo " $CHARGE_ICON$CHARGE%"
     else
-        echo " $CHARGE_ICON $CHARGE%"
+        echo " $CHARGE_ICON$CHARGE%"
     fi
 }
 
